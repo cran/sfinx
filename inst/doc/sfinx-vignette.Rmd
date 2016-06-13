@@ -1,0 +1,118 @@
+---
+title: "SFINX (Straightforward Filtering INdeX)"
+author: "Kevin Titeca"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette SFINX (Straightforward Filtering INdeX)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+**Affinity purification-mass spectrometry is one of the most common techniques for the analysis of protein-protein interactions, but inferring bona fide interactions from the resulting data sets remains notoriously difficult. We introduce SFINX, a Straightforward Filtering INdeX that identifies true-positive protein interactions in a fast, user-friendly, and highly accurate way. SFINX outperforms alternative techniques on benchmark data sets and is also available via the Web interface at http://sfinx.ugent.be/.**
+
+## Context
+
+The analysis of protein-protein interactions enables scientists to connect genotypes with phenotypes and to answer fundamental biological questions or generate new hypotheses on the functions of proteins. In this field, affinity purification-mass spectrometry is a classical approach wherein a protein of interest (bait) containing an epitope tag is purified under conditions that preserve the protein complex to allow the identification of co-purifying proteins by mass spectrometry.
+
+Several software approaches already exist to separate the false-positives from the true-positives in these protein-protein interaction data sets, but none of these approaches combines high accuracy, speed and user-friendliness without the need for the input of external data. Therefore, we developed the Straightforward Filtering INdeX (SFINX), which excels at all these points.
+
+## Access
+
+Users can easily access SFINX via the Web site interface at http://sfinx.ugent.be/ or via this package. This package also allows users to more easily integrate SFINX in their own R pipelines or on their own servers.
+
+## Examples
+```{r, echo = FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, comment = "#>", collapse = TRUE)
+```
+
+
+To use the sfinx package that you installed in your library, you also have to load it as follows:
+
+
+```{r}
+library(sfinx)
+
+```
+
+In these examples, we will use two example files as included in the package. These example files contain the original TIP49 data that were also included in the website interface. The first file (DataInputExampleFile) contains a numerical matrix with the results of the co-complex interactomics experiments. The columns of the matrix correspond to the individual experiments, and the rows correspond to the proteins that were at least once detected in one of the experiments. **Hence, the rownames also need to be unique.** The cells of this matrix are filled with the corresponding **peptide counts** of each protein in each experiment. The first ten rows and the first five columns of this matrix look as follows:
+
+
+```{r}
+DataInputExampleFile[1:10,1:5]
+
+
+```
+
+
+The second file (BaitIdentityExampleFile) is a character vector that contains all the (bait) proteins of interest. **These protein names should match the protein names in the rows of the first file exactly.** If the proteins from the the second file cannot be found in the first file, these proteins will be discarded from the analysis and SFINX will warn the user about this. The example vector looks as follows:
+
+```{r}
+BaitIdentityExampleFile
+
+```
+
+
+You can perform the standard SFINX analysis by using the sfinx() function of the sfinx package.
+
+
+```{r, eval = FALSE}
+sfinx(DataInputExampleFile, BaitIdentityExampleFile)
+
+```
+
+The output of the sfinx() function is a list with two elements. The first element is a dataframe with the filtered baits and preys, and the associated SFINX scores: the lower the SFINX score, the stronger the certainty of interaction. Beneath, you see the first rows of this output dataframe.
+
+
+```{r}
+head(sfinx(DataInputExampleFile, BaitIdentityExampleFile)[[1]])
+
+
+```
+
+The second element gives extra information about the experiment and possible warnings.
+
+```{r}
+sfinx(DataInputExampleFile, BaitIdentityExampleFile)[[2]]
+
+```
+
+
+As you can see, all the bait proteins in the example vector (BaitIdentityExampleFile) were also found as proteins in the rows of the example matrix (DataInputExampleFile), but the analysis of two bait proteins needs more negative controls for correct trustworthiness of the results associated with these baits.
+
+
+You can also use the more advanced version of SFINX. The parameters and their standard settings can be found below.
+
+```{r, eval = FALSE}
+sfinx(InputData, BaitVector, BackgroundRatio = 5, BackgroundIdentity = "automatic", BaitInfluence = FALSE, ConstantLimit = FALSE, FWERType = "B")
+
+
+```
+
+
+
+We direct users to the help files of the sfinx() function to get more insight into the use of these parameters.
+
+You can access the documentation in one of the two following ways:
+
+```{r, eval = FALSE}
+?sfinx
+
+help(sfinx)
+
+```
+
+
+## More information
+
+The SFINX algorithm and its interface were published in the Journal of Proteome Research on January 4, 2016.
+
+SFINX: Straightforward Filtering Index for Affinity Purification-Mass Spectrometry Data Analysis.
+Kevin Titeca, Pieter Meysman, Kris Gevaert, Jan Tavernier, Kris Laukens, Lennart Martens, and Sven Eyckerman.
+Journal of Proteome Research 2016 15 (1), 332-338.
+DOI: 10.1021/acs.jproteome.5b00666. 
+
+If you have suggestions or questions that remain after reading the article, the manual and the object information, you can contact us at sfinxinteractomics@gmail.com .
+
+

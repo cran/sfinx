@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Kevin Titeca" />
+
+<meta name="date" content="2016-06-13" />
+
+<title>SFINX (Straightforward Filtering INdeX)</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+
+
+<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%7D%0Apre%20%7B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="fluid-row" id="header">
+
+
+<h1 class="title">SFINX (Straightforward Filtering INdeX)</h1>
+<h4 class="author"><em>Kevin Titeca</em></h4>
+<h4 class="date"><em>2016-06-13</em></h4>
+
+</div>
+
+
+<p><strong>Affinity purification-mass spectrometry is one of the most common techniques for the analysis of protein-protein interactions, but inferring bona fide interactions from the resulting data sets remains notoriously difficult. We introduce SFINX, a Straightforward Filtering INdeX that identifies true-positive protein interactions in a fast, user-friendly, and highly accurate way. SFINX outperforms alternative techniques on benchmark data sets and is also available via the Web interface at <a href="http://sfinx.ugent.be/" class="uri">http://sfinx.ugent.be/</a>.</strong></p>
+<div id="context" class="section level2">
+<h2>Context</h2>
+<p>The analysis of protein-protein interactions enables scientists to connect genotypes with phenotypes and to answer fundamental biological questions or generate new hypotheses on the functions of proteins. In this field, affinity purification-mass spectrometry is a classical approach wherein a protein of interest (bait) containing an epitope tag is purified under conditions that preserve the protein complex to allow the identification of co-purifying proteins by mass spectrometry.</p>
+<p>Several software approaches already exist to separate the false-positives from the true-positives in these protein-protein interaction data sets, but none of these approaches combines high accuracy, speed and user-friendliness without the need for the input of external data. Therefore, we developed the Straightforward Filtering INdeX (SFINX), which excels at all these points.</p>
+</div>
+<div id="access" class="section level2">
+<h2>Access</h2>
+<p>Users can easily access SFINX via the Web site interface at <a href="http://sfinx.ugent.be/" class="uri">http://sfinx.ugent.be/</a> or via this package. This package also allows users to more easily integrate SFINX in their own R pipelines or on their own servers.</p>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<p>To use the sfinx package that you installed in your library, you also have to load it as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sfinx)</code></pre>
+<p>In these examples, we will use two example files as included in the package. These example files contain the original TIP49 data that were also included in the website interface. The first file (DataInputExampleFile) contains a numerical matrix with the results of the co-complex interactomics experiments. The columns of the matrix correspond to the individual experiments, and the rows correspond to the proteins that were at least once detected in one of the experiments. <strong>Hence, the rownames also need to be unique.</strong> The cells of this matrix are filled with the corresponding <strong>peptide counts</strong> of each protein in each experiment. The first ten rows and the first five columns of this matrix look as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r">DataInputExampleFile[<span class="dv">1</span>:<span class="dv">10</span>,<span class="dv">1</span>:<span class="dv">5</span>]
+<span class="co">#&gt;                              ARP5 ARP6_1 ARP6_2 ARP6_3 ARP8_1</span>
+<span class="co">#&gt; gi|10440560|ref|NP_066298.1|    0      1      0      0      0</span>
+<span class="co">#&gt; gi|10716563|ref|NP_001737.1|    0      2      0      0      0</span>
+<span class="co">#&gt; gi|10800130|ref|NP_066409.1|    0      2      2      1      0</span>
+<span class="co">#&gt; gi|10800138|ref|NP_066407.1|    0      0      0      0      0</span>
+<span class="co">#&gt; gi|10801345|ref|NP_037366.1|    0      1      0      0      0</span>
+<span class="co">#&gt; gi|10834990|ref|NP_000606.1|    0      1      0      0      0</span>
+<span class="co">#&gt; gi|10835051|ref|NP_001742.1|    0      0      0      0      0</span>
+<span class="co">#&gt; gi|10835055|ref|NP_001778.1|    0      0      0      0      0</span>
+<span class="co">#&gt; gi|10835063|ref|NP_002511.1|    3      5      3      3      0</span>
+<span class="co">#&gt; gi|10835067|ref|NP_003133.1|    0     10      0      0      0</span></code></pre>
+<p>The second file (BaitIdentityExampleFile) is a character vector that contains all the (bait) proteins of interest. <strong>These protein names should match the protein names in the rows of the first file exactly.</strong> If the proteins from the the second file cannot be found in the first file, these proteins will be discarded from the analysis and SFINX will warn the user about this. The example vector looks as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r">BaitIdentityExampleFile
+<span class="co">#&gt;  [1] &quot;gi|31542680|ref|NP_079131.2|&quot; &quot;gi|11968057|ref|NP_071941.1|&quot;</span>
+<span class="co">#&gt;  [3] &quot;gi|39812115|ref|NP_075050.3|&quot; &quot;gi|24308444|ref|NP_612467.1|&quot;</span>
+<span class="co">#&gt;  [5] &quot;gi|39930355|ref|NP_056263.1|&quot; &quot;gi|27734727|ref|NP_775889.1|&quot;</span>
+<span class="co">#&gt;  [7] &quot;gi|20149643|ref|NP_060423.2|&quot; &quot;gi|8923598|ref|NP_060386.1|&quot; </span>
+<span class="co">#&gt;  [9] &quot;gi|46367785|ref|NP_060292.2|&quot; &quot;gi|38488718|ref|NP_060229.2|&quot;</span>
+<span class="co">#&gt; [11] &quot;gi|4504255|ref|NP_002097.1|&quot;  &quot;gi|13775202|ref|NP_112578.1|&quot;</span>
+<span class="co">#&gt; [13] &quot;gi|42822884|ref|NP_919257.2|&quot; &quot;gi|32996737|ref|NP_775106.2|&quot;</span>
+<span class="co">#&gt; [15] &quot;gi|8922764|ref|NP_060740.1|&quot;  &quot;gi|6912542|ref|NP_036477.1|&quot; </span>
+<span class="co">#&gt; [17] &quot;gi|18079254|ref|NP_110442.1|&quot; &quot;gi|19924159|ref|NP_003787.2|&quot;</span>
+<span class="co">#&gt; [19] &quot;gi|HsSRCAP&quot;                   &quot;gi|7019371|ref|NP_037474.1|&quot; </span>
+<span class="co">#&gt; [21] &quot;gi|4506753|ref|NP_003698.1|&quot;  &quot;gi|5730023|ref|NP_006657.1|&quot; </span>
+<span class="co">#&gt; [23] &quot;gi|24041018|ref|NP_705582.1|&quot; &quot;gi|5174715|ref|NP_005988.1|&quot; </span>
+<span class="co">#&gt; [25] &quot;gi|5453617|ref|NP_006340.1|&quot;  &quot;gi|7656936|ref|NP_055020.1|&quot;</span></code></pre>
+<p>You can perform the standard SFINX analysis by using the sfinx() function of the sfinx package.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sfinx</span>(DataInputExampleFile, BaitIdentityExampleFile)</code></pre>
+<p>The output of the sfinx() function is a list with two elements. The first element is a dataframe with the filtered baits and preys, and the associated SFINX scores: the lower the SFINX score, the stronger the certainty of interaction. Beneath, you see the first rows of this output dataframe.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sfinx</span>(DataInputExampleFile, BaitIdentityExampleFile)[[<span class="dv">1</span>]])
+<span class="co">#&gt;                                                     Baits        Scores</span>
+<span class="co">#&gt; gi|HsSRCAP                   gi|11968057|ref|NP_071941.1| 3.587132e-209</span>
+<span class="co">#&gt; gi|11968057|ref|NP_071941.1| gi|11968057|ref|NP_071941.1|  7.022106e-61</span>
+<span class="co">#&gt; gi|13123776|ref|NP_061973.1| gi|11968057|ref|NP_071941.1|  1.149899e-54</span>
+<span class="co">#&gt; gi|4507691|ref|NP_003487.1|  gi|11968057|ref|NP_071941.1|  5.723095e-51</span>
+<span class="co">#&gt; gi|56549696|ref|NP_056224.2| gi|11968057|ref|NP_071941.1|  1.858411e-47</span>
+<span class="co">#&gt; gi|5729838|ref|NP_006521.1|  gi|11968057|ref|NP_071941.1|  6.845326e-22</span>
+<span class="co">#&gt;                                                     Preys       pValues</span>
+<span class="co">#&gt; gi|HsSRCAP                                     gi|HsSRCAP 3.590389e-209</span>
+<span class="co">#&gt; gi|11968057|ref|NP_071941.1| gi|11968057|ref|NP_071941.1|  7.022106e-61</span>
+<span class="co">#&gt; gi|13123776|ref|NP_061973.1| gi|13123776|ref|NP_061973.1|  1.232392e-54</span>
+<span class="co">#&gt; gi|4507691|ref|NP_003487.1|   gi|4507691|ref|NP_003487.1|  7.097118e-51</span>
+<span class="co">#&gt; gi|56549696|ref|NP_056224.2| gi|56549696|ref|NP_056224.2|  2.284239e-47</span>
+<span class="co">#&gt; gi|5729838|ref|NP_006521.1|   gi|5729838|ref|NP_006521.1|  7.457616e-22</span></code></pre>
+<p>The second element gives extra information about the experiment and possible warnings.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sfinx</span>(DataInputExampleFile, BaitIdentityExampleFile)[[<span class="dv">2</span>]]
+<span class="co">#&gt; [1] &quot;All baits were found as possible preys. Some baits yielded interactions with a lower confidence, as there are not enough negative controls for them:gi|4506753|ref|NP_003698.1| gi|5730023|ref|NP_006657.1|. Please, use more negative controls.&quot;</span></code></pre>
+<p>As you can see, all the bait proteins in the example vector (BaitIdentityExampleFile) were also found as proteins in the rows of the example matrix (DataInputExampleFile), but the analysis of two bait proteins needs more negative controls for correct trustworthiness of the results associated with these baits.</p>
+<p>You can also use the more advanced version of SFINX. The parameters and their standard settings can be found below.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sfinx</span>(InputData, BaitVector, <span class="dt">BackgroundRatio =</span> <span class="dv">5</span>, <span class="dt">BackgroundIdentity =</span> <span class="st">&quot;automatic&quot;</span>, <span class="dt">BaitInfluence =</span> <span class="ot">FALSE</span>, <span class="dt">ConstantLimit =</span> <span class="ot">FALSE</span>, <span class="dt">FWERType =</span> <span class="st">&quot;B&quot;</span>)</code></pre>
+<p>We direct users to the help files of the sfinx() function to get more insight into the use of these parameters.</p>
+<p>You can access the documentation in one of the two following ways:</p>
+<pre class="sourceCode r"><code class="sourceCode r">?sfinx
+
+<span class="kw">help</span>(sfinx)</code></pre>
+</div>
+<div id="more-information" class="section level2">
+<h2>More information</h2>
+<p>The SFINX algorithm and its interface were published in the Journal of Proteome Research on January 4, 2016.</p>
+<p>SFINX: Straightforward Filtering Index for Affinity Purification-Mass Spectrometry Data Analysis. Kevin Titeca, Pieter Meysman, Kris Gevaert, Jan Tavernier, Kris Laukens, Lennart Martens, and Sven Eyckerman. Journal of Proteome Research 2016 15 (1), 332-338. DOI: 10.1021/acs.jproteome.5b00666.</p>
+<p>If you have suggestions or questions that remain after reading the article, the manual and the object information, you can contact us at <a href="mailto:sfinxinteractomics@gmail.com">sfinxinteractomics@gmail.com</a> .</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

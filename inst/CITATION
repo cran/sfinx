@@ -1,0 +1,24 @@
+citHeader("To cite SFINX in publications use:")
+
+citEntry(entry = "Article",
+         title        = "SFINX: Straightforward Filtering Index for Affinity Purification-Mass Spectrometry Data Analysis.",
+         author       = personList(as.person("Kevin Titeca"),
+                                   as.person("Pieter Meysman"),
+                                   as.person("Kris Gevaert"),
+                                   as.person("Jan Tavernier"),
+                                   as.person("Kris Laukens"),
+                                   as.person("Lennart Martens"),
+                                   as.person("Sven Eyckerman")),
+         journal      = "Journal of Proteome Research",
+         year         = "2016",
+         volume       = "15",
+         number       = "1",
+         pages        = "332-8",
+         url          = "http://pubs.acs.org/doi/abs/10.1021/acs.jproteome.5b00666",
+
+         textVersion  =
+           paste("Kevin Titeca, Pieter Meysman, Kris Gevaert, Jan Tavernier, Kris Laukens, Lennart Martens, Sven Eyckerman (2016).",
+                 "SFINX: Straightforward Filtering Index for Affinity Purification-Mass Spectrometry Data Analysis.",
+                 "Journal of Proteome Research, 15(1), 332-8.",
+                 "URL http://pubs.acs.org/doi/abs/10.1021/acs.jproteome.5b00666")
+)

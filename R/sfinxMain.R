@@ -118,7 +118,7 @@ colSumsNewKT <- function(InputStuff) {
 #' sfinx(DataInputExampleFile, BaitIdentityExampleFile)
 #'
 #' sfinx(InputData = DataInputExampleFile, BaitVector =
-#' BaitIdentityExampleFile, ConstantLimit = TRUE, FWERType = "Sidak")
+#' BaitIdentityExampleFile, ConstantLimit = FALSE, FWERType = "Sidak")
 #' 
 #' 
 #' @importFrom stats dbinom
@@ -127,7 +127,7 @@ colSumsNewKT <- function(InputStuff) {
 #' @export
 
 # The SFINX Algorithm itself
-sfinx <- function(InputData, BaitVector, BackgroundRatio = 5, BackgroundIdentity = "automatic", BaitInfluence = FALSE, ConstantLimit = FALSE, FWERType = "B") {
+sfinx <- function(InputData, BaitVector, BackgroundRatio = 5, BackgroundIdentity = "automatic", BaitInfluence = FALSE, ConstantLimit = TRUE, FWERType = "B") {
 
     #### Input & conversion datamatrix input
     TotalDataMatrixSW <- as.matrix(InputData)

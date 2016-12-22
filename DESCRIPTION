@@ -1,8 +1,8 @@
 Package: sfinx
 Type: Package
 Title: Straightforward Filtering Index for AP-MS Data Analysis (SFINX)
-Version: 1.7.0
-Date: 2016-06-13
+Version: 1.7.9
+Date: 2016-12-20
 Authors@R: c( person("Kevin", "Titeca", email = "sfinxinteractomics@gmail.com", role = c("aut", "cre")),
               person("Jan", "Tavernier", role = "ths"),
               person("Sven", "Eyckerman", role = "ths"))
@@ -21,10 +21,10 @@ RoxygenNote: 5.0.1
 Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2016-06-13 14:59:35 UTC; Kevin
+Packaged: 2016-12-22 22:52:22 UTC; Kevin
 Author: Kevin Titeca [aut, cre],
   Jan Tavernier [ths],
   Sven Eyckerman [ths]
 Maintainer: Kevin Titeca <sfinxinteractomics@gmail.com>
 Repository: CRAN
-Date/Publication: 2016-06-13 17:10:32
+Date/Publication: 2016-12-23 00:07:04

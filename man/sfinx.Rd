@@ -6,7 +6,7 @@
 \usage{
 sfinx(InputData, BaitVector, BackgroundRatio = 5,
   BackgroundIdentity = "automatic", BaitInfluence = FALSE,
-  ConstantLimit = FALSE, FWERType = "B")
+  ConstantLimit = TRUE, FWERType = "B")
 }
 \arguments{
 \item{InputData}{A strictly numeric matrix with unique proteins as rownames
@@ -76,7 +76,7 @@ reported upon communication of the results.
 sfinx(DataInputExampleFile, BaitIdentityExampleFile)
 
 sfinx(InputData = DataInputExampleFile, BaitVector =
-BaitIdentityExampleFile, ConstantLimit = TRUE, FWERType = "Sidak")
+BaitIdentityExampleFile, ConstantLimit = FALSE, FWERType = "Sidak")
 
 
 }

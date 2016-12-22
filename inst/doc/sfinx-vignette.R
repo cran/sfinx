@@ -28,7 +28,7 @@ sfinx(DataInputExampleFile, BaitIdentityExampleFile)[[2]]
 
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  sfinx(InputData, BaitVector, BackgroundRatio = 5, BackgroundIdentity = "automatic", BaitInfluence = FALSE, ConstantLimit = FALSE, FWERType = "B")
+#  sfinx(InputData, BaitVector, BackgroundRatio = 5, BackgroundIdentity = "automatic", BaitInfluence = FALSE, ConstantLimit = TRUE, FWERType = "B")
 #  
 #  
 

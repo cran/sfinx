@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kevin Titeca" />
 
-<meta name="date" content="2016-06-13" />
+<meta name="date" content="2016-12-22" />
 
 <title>SFINX (Straightforward Filtering INdeX)</title>
 
@@ -52,7 +52,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 <h1 class="title">SFINX (Straightforward Filtering INdeX)</h1>
 <h4 class="author"><em>Kevin Titeca</em></h4>
-<h4 class="date"><em>2016-06-13</em></h4>
+<h4 class="date"><em>2016-12-22</em></h4>
 
 </div>
 
@@ -103,26 +103,26 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sfinx</span>(DataInputExampleFile, BaitIdentityExampleFile)</code></pre>
 <p>The output of the sfinx() function is a list with two elements. The first element is a dataframe with the filtered baits and preys, and the associated SFINX scores: the lower the SFINX score, the stronger the certainty of interaction. Beneath, you see the first rows of this output dataframe.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sfinx</span>(DataInputExampleFile, BaitIdentityExampleFile)[[<span class="dv">1</span>]])
-<span class="co">#&gt;                                                     Baits        Scores</span>
-<span class="co">#&gt; gi|HsSRCAP                   gi|11968057|ref|NP_071941.1| 3.587132e-209</span>
-<span class="co">#&gt; gi|11968057|ref|NP_071941.1| gi|11968057|ref|NP_071941.1|  7.022106e-61</span>
-<span class="co">#&gt; gi|13123776|ref|NP_061973.1| gi|11968057|ref|NP_071941.1|  1.149899e-54</span>
-<span class="co">#&gt; gi|4507691|ref|NP_003487.1|  gi|11968057|ref|NP_071941.1|  5.723095e-51</span>
-<span class="co">#&gt; gi|56549696|ref|NP_056224.2| gi|11968057|ref|NP_071941.1|  1.858411e-47</span>
-<span class="co">#&gt; gi|5729838|ref|NP_006521.1|  gi|11968057|ref|NP_071941.1|  6.845326e-22</span>
-<span class="co">#&gt;                                                     Preys       pValues</span>
-<span class="co">#&gt; gi|HsSRCAP                                     gi|HsSRCAP 3.590389e-209</span>
-<span class="co">#&gt; gi|11968057|ref|NP_071941.1| gi|11968057|ref|NP_071941.1|  7.022106e-61</span>
-<span class="co">#&gt; gi|13123776|ref|NP_061973.1| gi|13123776|ref|NP_061973.1|  1.232392e-54</span>
-<span class="co">#&gt; gi|4507691|ref|NP_003487.1|   gi|4507691|ref|NP_003487.1|  7.097118e-51</span>
-<span class="co">#&gt; gi|56549696|ref|NP_056224.2| gi|56549696|ref|NP_056224.2|  2.284239e-47</span>
-<span class="co">#&gt; gi|5729838|ref|NP_006521.1|   gi|5729838|ref|NP_006521.1|  7.457616e-22</span></code></pre>
+<span class="co">#&gt;                                                     Baits       Scores</span>
+<span class="co">#&gt; gi|4504041|ref|NP_002061.1|  gi|11968057|ref|NP_071941.1| 2.521500e-08</span>
+<span class="co">#&gt; gi|19424130|ref|NP_598000.1| gi|11968057|ref|NP_071941.1| 1.365428e-09</span>
+<span class="co">#&gt; gi|NTAP-BHD_mutant           gi|11968057|ref|NP_071941.1| 1.365428e-09</span>
+<span class="co">#&gt; gi|18105007|ref|NP_004332.2| gi|11968057|ref|NP_071941.1| 7.510240e-11</span>
+<span class="co">#&gt; gi|74136549|ref|NP_115575.1| gi|11968057|ref|NP_071941.1| 7.393988e-11</span>
+<span class="co">#&gt; gi|36287069|ref|NP_874369.1| gi|11968057|ref|NP_071941.1| 6.192308e-12</span>
+<span class="co">#&gt;                                                     Preys      pValues</span>
+<span class="co">#&gt; gi|4504041|ref|NP_002061.1|   gi|4504041|ref|NP_002061.1| 2.521500e-08</span>
+<span class="co">#&gt; gi|19424130|ref|NP_598000.1| gi|19424130|ref|NP_598000.1| 1.365428e-09</span>
+<span class="co">#&gt; gi|NTAP-BHD_mutant                     gi|NTAP-BHD_mutant 1.365428e-09</span>
+<span class="co">#&gt; gi|18105007|ref|NP_004332.2| gi|18105007|ref|NP_004332.2| 8.239662e-11</span>
+<span class="co">#&gt; gi|74136549|ref|NP_115575.1| gi|74136549|ref|NP_115575.1| 7.393988e-11</span>
+<span class="co">#&gt; gi|36287069|ref|NP_874369.1| gi|36287069|ref|NP_874369.1| 7.347004e-12</span></code></pre>
 <p>The second element gives extra information about the experiment and possible warnings.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sfinx</span>(DataInputExampleFile, BaitIdentityExampleFile)[[<span class="dv">2</span>]]
 <span class="co">#&gt; [1] &quot;All baits were found as possible preys. Some baits yielded interactions with a lower confidence, as there are not enough negative controls for them:gi|4506753|ref|NP_003698.1| gi|5730023|ref|NP_006657.1|. Please, use more negative controls.&quot;</span></code></pre>
 <p>As you can see, all the bait proteins in the example vector (BaitIdentityExampleFile) were also found as proteins in the rows of the example matrix (DataInputExampleFile), but the analysis of two bait proteins needs more negative controls for correct trustworthiness of the results associated with these baits.</p>
 <p>You can also use the more advanced version of SFINX. The parameters and their standard settings can be found below.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sfinx</span>(InputData, BaitVector, <span class="dt">BackgroundRatio =</span> <span class="dv">5</span>, <span class="dt">BackgroundIdentity =</span> <span class="st">&quot;automatic&quot;</span>, <span class="dt">BaitInfluence =</span> <span class="ot">FALSE</span>, <span class="dt">ConstantLimit =</span> <span class="ot">FALSE</span>, <span class="dt">FWERType =</span> <span class="st">&quot;B&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sfinx</span>(InputData, BaitVector, <span class="dt">BackgroundRatio =</span> <span class="dv">5</span>, <span class="dt">BackgroundIdentity =</span> <span class="st">&quot;automatic&quot;</span>, <span class="dt">BaitInfluence =</span> <span class="ot">FALSE</span>, <span class="dt">ConstantLimit =</span> <span class="ot">TRUE</span>, <span class="dt">FWERType =</span> <span class="st">&quot;B&quot;</span>)</code></pre>
 <p>We direct users to the help files of the sfinx() function to get more insight into the use of these parameters.</p>
 <p>You can access the documentation in one of the two following ways:</p>
 <pre class="sourceCode r"><code class="sourceCode r">?sfinx

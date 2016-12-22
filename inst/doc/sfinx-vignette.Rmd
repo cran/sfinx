@@ -85,7 +85,7 @@ As you can see, all the bait proteins in the example vector (BaitIdentityExample
 You can also use the more advanced version of SFINX. The parameters and their standard settings can be found below.
 
 ```{r, eval = FALSE}
-sfinx(InputData, BaitVector, BackgroundRatio = 5, BackgroundIdentity = "automatic", BaitInfluence = FALSE, ConstantLimit = FALSE, FWERType = "B")
+sfinx(InputData, BaitVector, BackgroundRatio = 5, BackgroundIdentity = "automatic", BaitInfluence = FALSE, ConstantLimit = TRUE, FWERType = "B")
 
 
 ```

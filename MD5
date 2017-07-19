@@ -1,4 +1,4 @@
-437f960751e18e126de2342d40c38d1f *DESCRIPTION
+03c47bd20ba51fc6b5343cee619682af *DESCRIPTION
 62c995ccfb6add9b720a8c4fe09d7848 *NAMESPACE
 d6ec1370cae4d2a8552d316e5c6c9cbb *R/sfinxMain.R
 0fd0aad03822201e02665e354bf9dfe7 *R/zzz.R
@@ -6,10 +6,10 @@ c5dfd80359e2d7ca979414e66441c980 *README.md
 1d4a7f7748fabc59af92ddbe0495eeae *build/vignette.rds
 a64a5c28cdd5d014be926e9c25742489 *data/BaitIdentityExampleFile.rda
 3ef6f5602689ae12619cd4b25f5f46c1 *data/DataInputExampleFile.rda
-b7c8f478da52c1eb3981e3deaf089daf *inst/CITATION
+2d7360f0e2f0ec6b4bcb1f3a65adca62 *inst/CITATION
 aba32d5eb119ef768df8831c66dc9249 *inst/doc/sfinx-vignette.R
 ad3a19b7cce66964658f037959a12adb *inst/doc/sfinx-vignette.Rmd
-cdcfd3aff2e7f315fc62976e7688cde6 *inst/doc/sfinx-vignette.html
+a47de0955ba5bacc8d4be5fb22ba62b1 *inst/doc/sfinx-vignette.html
 9a48d45b06c82bed497e2254d6f09ab1 *man/BaitIdentityExampleFile.Rd
 322217945bd2c8e674aef7fbe7fb2820 *man/DataInputExampleFile.Rd
 46ea9e7d55841d2bf1385ca4467c27bc *man/sfinx.Rd
